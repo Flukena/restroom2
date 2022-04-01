@@ -1,18 +1,27 @@
 
-const count = document.querySelector('.count');
-const restroom = document.querySelector('.restroom');
-const toilet = document.querySelector('.toilet');
+// const count = document.querySelector('.count');
+// const restroom = document.querySelector('.restroom');
+// const toilet = document.querySelector('.toilet');
 
 
 var request = new XMLHttpRequest();
-request.open('GET', '127.0.0.1:4000/api', true);
-request.onload = function () {
+request.open('GET', 'https://restroom-nodejs.herokuapp.com/', true);
 
-    // Begin accessing JSON data here
+function getCount(){
+    data = request.response
+    if(request.status >= 200 && request.status < 400){
+        return data.count
+    }
+}
+let count = 0;
+request.onload = function () {
     var datas = JSON.parse(this.response);
     if (request.status >= 200 && request.status < 400) {
         datas.forEach(data => {
-            console.log(data);
+            console.log("----")
+            count = data.count
+            document.getElementsByClassName("count").innerHTML = count
+            // this.count = data.count;
             //   const card = document.createElement('div');
             //   card.setAttribute('class', 'card');
 
